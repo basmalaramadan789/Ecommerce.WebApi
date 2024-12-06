@@ -1,0 +1,38 @@
+[
+  {
+    "Name": "Smartphones",
+    "ProductTypeId": 1
+  },
+  {
+    "Name": "Laptops",
+    "ProductTypeId": 1
+  },
+  {
+    "Name": "Tablets",
+    "ProductTypeId": 1
+  },
+  {
+    "Name": "Shirts",
+    "ProductTypeId": 2
+  },
+  {
+    "Name": "Pants",
+    "ProductTypeId": 2
+  },
+  {
+    "Name": "Jackets",
+    "ProductTypeId": 2
+  },
+  {
+    "Name": "Sneakers",
+    "ProductTypeId": 3
+  },
+  {
+    "Name": "Boots",
+    "ProductTypeId": 3
+  },
+  {
+    "Name": "Sandals",
+    "ProductTypeId": 3
+  }
+]

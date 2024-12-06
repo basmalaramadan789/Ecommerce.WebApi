@@ -1,0 +1,44 @@
+[
+  {
+    "Name": "Electronics",
+    "ProductSubTypes": [
+      {
+        "Name": "Smartphones"
+      },
+      {
+        "Name": "Laptops"
+      },
+      {
+        "Name": "Tablets"
+      }
+    ]
+  },
+  {
+    "Name": "Clothing",
+    "ProductSubTypes": [
+      {
+        "Name": "Shirts"
+      },
+      {
+        "Name": "Pants"
+      },
+      {
+        "Name": "Jackets"
+      }
+    ]
+  },
+  {
+    "Name": "Footwear",
+    "ProductSubTypes": [
+      {
+        "Name": "Sneakers"
+      },
+      {
+        "Name": "Boots"
+      },
+      {
+        "Name": "Sandals"
+      }
+    ]
+  }
+]

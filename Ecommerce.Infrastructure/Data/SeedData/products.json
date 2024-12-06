@@ -1,0 +1,26 @@
+[
+  {
+    "Name": "iPhone 13",
+    "Price": 999.99,
+    "Description": "Latest Apple smartphone",
+    "PictureUrl": "https://example.com/iphone13.jpg",
+    "ProductBrandId": 1,
+    "ProductSubTypeId": 1
+  },
+  {
+    "Name": "Nike Air Max",
+    "Price": 149.99,
+    "Description": "Comfortable sneakers for daily wear",
+    "PictureUrl": "https://example.com/nikeairmax.jpg",
+    "ProductBrandId": 2,
+    "ProductSubTypeId": 3
+  },
+  {
+    "Name": "Adidas Ultraboost",
+    "Price": 180.00,
+    "Description": "High-performance running shoes",
+    "PictureUrl": "https://example.com/ultraboost.jpg",
+    "ProductBrandId": 3,
+    "ProductSubTypeId": 3
+  }
+]
