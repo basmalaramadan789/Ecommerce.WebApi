@@ -73,6 +73,9 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddScoped<IPaymentService, PaymentService>();
 
+//builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
+builder.Services.AddSingleton<IEmailService, EmailService>();
+
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
 
@@ -126,6 +129,8 @@ builder.Services.AddSwaggerGen(c =>
         }
     });
 });
+
+
 
 var app = builder.Build();
 

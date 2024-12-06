@@ -76,7 +76,7 @@ public class WishLisrItemService:IWishListItemService
 
     public async Task<IReadOnlyList<WishListItem>> GetWishlistItemsAsync()
     {
-        // 1. Get the current logged-in user's ID from IHttpContextAccessor
+        //.Get the current logged -in user's ID from IHttpContextAccessor
         var userId = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
         if (string.IsNullOrEmpty(userId))
@@ -84,12 +84,14 @@ public class WishLisrItemService:IWishListItemService
             throw new UnauthorizedAccessException("User is not authenticated.");
         }
 
-        // 2. Get the wishlist items for the user
-        var wishlistItems = await _appContext.WishListItems
-            .Where(w => w.UserId == userId)
-            .ToListAsync();
+       // 2.Get the wishlist items for the user
+
+       var wishlistItems = await _appContext.WishListItems
+           .Where(w => w.UserId == userId)
+           .ToListAsync();
 
         return wishlistItems;
+
     }
 
     public async Task RemoveItemFromWishlistAsync(int productId)

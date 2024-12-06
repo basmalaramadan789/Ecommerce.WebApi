@@ -1,11 +1,11 @@
-﻿using Ecommerce.Core.Entities;
-using Ecommerce.Core.Interfaces;
+﻿using Ecommerce.Core.Interfaces;
 using Ecommerce.Infrastructure.Data;
-using Ecommerce.Web.Extensions;
+using Ecommerce.Web.Dtos;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
+
 
 namespace Ecommerce.Web.Controllers;
 [Route("api/[controller]")]
@@ -15,10 +15,14 @@ public class WishListController : ControllerBase
 {
     private readonly IWishListItemService _wishlistService;
     private readonly IHttpContextAccessor _httpContextAccessor;
-    public WishListController(IWishListItemService wishlistService, IHttpContextAccessor httpContextAccessor)
+    private readonly ApplicationDbContext _appContext;
+    
+
+    public WishListController(IWishListItemService wishlistService, IHttpContextAccessor httpContextAccessor, ApplicationDbContext appContext)
     {
         _wishlistService = wishlistService;
         _httpContextAccessor = httpContextAccessor;
+        _appContext = appContext;
     }
 
 
@@ -55,16 +59,51 @@ public class WishListController : ControllerBase
     [HttpGet("GetWishlist")]
     public async Task<IActionResult> GetWishlist()
     {
+        //try
+        //{
+        //    var wishlistItems = await _wishlistService.GetWishlistItemsAsync();
+        //    return Ok(wishlistItems);
+        //}
+        //catch (Exception ex)
+        //{
+        //    return BadRequest(new { Message = ex.Message });
+        //}
         try
         {
-            var wishlistItems = await _wishlistService.GetWishlistItemsAsync();
-            return Ok(wishlistItems);
+            // Get the current logged-in user's ID from IHttpContextAccessor
+            var userId = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Unauthorized(new { Message = "User is not authenticated." });
+            }
+
+            // Get the wishlist items for the user, including the product details
+            var wishlistItems = await _appContext.WishListItems
+                .Where(w => w.UserId == userId)
+                .Include(w => w.Product)  
+                .ToListAsync();
+            
+            var wishlistItemsDto = wishlistItems.Select(w => new WishListItemDto
+            {
+                Id = w.Id,
+                ProductName = w.Product.Name,  
+                ProductImage = w.Product.PictureUrl,  
+                ProductPrice = w.Product.Price  
+            }).ToList();
+
+            return Ok(wishlistItemsDto);  // Return the wishlist items with product details (name, image, price)
         }
         catch (Exception ex)
         {
             return BadRequest(new { Message = ex.Message });
         }
     }
+
+
+
+
+
     [HttpDelete("RemoveFromWishlist/{productId}")]
     public async Task<IActionResult> RemoveFromWishlist(int productId)
     {
